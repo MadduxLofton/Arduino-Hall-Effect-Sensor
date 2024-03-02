@@ -1,7 +1,10 @@
+#include "Plotter.h"
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  p.Begin();
+  p.AddTimeGraph( "Current AMP Graph", 1500, "AMP'S", current_Ia );
 }
 
 void loop() {
@@ -50,4 +53,10 @@ Ia = (volts_output_val - (Vcc / 2.0) ) / k
   // print out the value you read:
   Serial.println(current_Ia);
   delay(100);  // delay in between reads for stability
+  // Plotting Code
+  Plotter p;
+  p.Plot();
+
+  
+  
 }
