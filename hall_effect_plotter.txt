@@ -1,0 +1,34 @@
+This real time plotter requires the listener from: https://github.com/devinaconley/arduino-plotter
+
+These threads were useful in trouble shooting issues I had:
+https://github.com/devinaconley/arduino-plotter/issues/37
+https://github.com/devinaconley/arduino-plotter/issues/42
+
+One of the issues I ran into is that the listener.exe on the github didn't work.
+To fix this I recompiled the source files using Processing v4.3 (processing.org), I think I also had to download Java.
+
+To compile the source in Processing:
+1. Open the listener source file in Processing.
+2. Save the sketch
+3. Click File
+4. Click export application
+This should create a new folder in the listener source file.
+In this folder should be a source.exe which is the listener for the project.
+
+To run the code I would upload the hall-effect sensor arduino code to the ardiunio. (this is in the arduino IDE v2.3.2) 
+Then I would open the source.exe.
+I would then reupload the code.
+For some reason this was the only way I found which worked consistently.
+
+Things which do not work:
+1. Uploading the code and then opening the listener. The listener gets stuck looking for COM6 and doesn't graph anything. Curiously,
+pressing the button on the arduino to reset it doesn't cause the listener to work but pressing the button while the listener is connected 
+does causes it to reset just fine.
+2. Opening the listener and then uploading the code for the 1st time or after making changes. If the code hasn't been uploaded it doesn't 
+start, but if it has been changed the unchanged code will run if it wasn't uploaded before the listener was opened.
+
+Even when it works I get the error message:
+avrdude: ser_open(): can't open device "\\.\COM6": Access is denied.
+Failed uploading: uploading error: exit status 1
+
+Best of luck if that doesn't work.
