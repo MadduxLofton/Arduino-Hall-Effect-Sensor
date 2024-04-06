@@ -1,10 +1,15 @@
 #include "Plotter.h"
 
+double current_Ia;
+Plotter p;
+double top_line = 10;
+double bottom_line = 0;
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial.begin(115200); // was set to 9600 setting to 115200 because of https://github.com/devinaconley/arduino-plotter/issues/42
   p.Begin();
-  p.AddTimeGraph( "Current AMP Graph", 1500, "AMP'S", current_Ia );
+  p.AddTimeGraph( "Current AMP Graph", 1500, "AMPs", current_Ia, "Max", top_line, "Min", bottom_line);
 }
 
 void loop() {
@@ -44,17 +49,17 @@ Ia = (volts_output_val - (Vcc / 2.0) ) / k
   int raw_sensor_value = analogRead(A0); // On an Arduino UNO, for example, this yields a resolution between readings of: 5 volts / 1024 units or, 0.0049 volts (4.9 mV) per unit.
   double volts_output_val = raw_sensor_value * (board_operating_volts / 1023.0); // at 0 current this should be 2.5
 
-  double k = 66.0 / 1000.0; // Linearity? What does that even mean?
+  double k = 70.0 / 1000.0; // Linearity? What does that even mean?
   double Vcc = 5.0; // If this is the operating volts for the Hall sensor it should be 5 volts.
 
   double calibrated_Vcc = 2.465;
   //double current_Ia = (volts_output_val - (Vcc / 2.0)) / k; // * k ?
-  double current_Ia = (volts_output_val - (calibrated_Vcc)) / k; // * k ?
+  current_Ia = (volts_output_val - (calibrated_Vcc)) / k; // * k ?
+  current_Ia = abs(current_Ia);
   // print out the value you read:
-  Serial.println(current_Ia);
-  delay(100);  // delay in between reads for stability
+  //Serial.println(current_Ia);
+  // delay(100);  // delay in between reads for stability
   // Plotting Code
-  Plotter p;
   p.Plot();
 
   
