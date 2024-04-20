@@ -1,4 +1,5 @@
 This real time plotter requires the listener from: https://github.com/devinaconley/arduino-plotter
+EDIT: Make sure to download the listener.java as well as it contains the changes that allows the listener to write to a file
 
 These threads were useful in trouble shooting issues I had:
 https://github.com/devinaconley/arduino-plotter/issues/37
